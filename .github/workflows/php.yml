@@ -1,7 +1,37 @@
 name: PHP Composer
 
-on:
+oncomposer.lock` files.
+- Cache Composer packages.
+- Install dependencies.
+
+Please ensure the following:
+
+:
   push:
+    branches: [ "main" ]
+  pull_request:
+   1. **Composer Installation**: Make sure `composer` branches: [ "main" ]
+
+permissions:
+  contents: read is installed correctly on the runner.
+2. **Dependencies**:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    Ensure there are no issues in `composer.json` and `composer.lock` files.
+
+Here's an updated version of your workflow file adding debug logs and a step to install Composer:
+
+```yaml
+name: PHP Composer
+
+on:
+ steps:
+    - uses: actions/checkout@v4
+
+    - name  push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -11,29 +41,48 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
 
+    - name:: Validate composer.json and composer.lock
+      run Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4' # Specify your PHP version
+
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
     - name: Cache Composer packages
-      id: composer-cache
+      id: composer-cache: composer validate --strict
+
+    - name: Cache Composer packages
       uses: actions/cache@v3
       with:
-        path: vendor
+        path
+      id: composer-cache
+      uses: actions/cache: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
+        restore-@v3
+      with:
+        path: vendor
+        keykeys: |
           ${{ runner.os }}-php-
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Run test suite
+      run: composer run-script test # Uncomment and make: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock sure your composer.json has a "test" script
+') }}
+        restore-keys: |
+          ${{ runner.os }}```
 
-    # - name: Run test suite
-    #   run: composer run-script test
+Make sure to adjust the PHP version as needed.-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+   
